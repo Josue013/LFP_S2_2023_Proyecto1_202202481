@@ -19,22 +19,27 @@ El siguiente programa fue realizado en el lenguaje de programación Python, el c
 
 ## Interfaz de Usuario
 La interfaz de usuario de nuestra aplicación contara contara con 4 botones los cuales serán Archivo, Analizar, Errores y Reporte. Tambien un cuadro de texto donde se escribira nuestro JSON
+
 ![Interfaz](https://i.ibb.co/ThfbZW9/Interfaz.png)
 
 ### Archivo: 
 Podemos abrir un archivo JSON, guardar o guardar como y este aparecera en la pantalla
+
 ![Abrir](https://i.ibb.co/0QHGJnZ/Abrir-archivo.png)
 
 ### Analizar
 Inicia el analisis del contenido JSON haciendo las operaciones
+
 ![Analisis](https://i.ibb.co/ftbq3sH/Analisis.png)
 
 ### Errores
 Comprueba si hay errores y verifica y muestra los errores en un archivo JSON
+
 ![Analisis](https://i.ibb.co/Jzm1Wxh/Errores.png)
 
 ### Reporte
 Genera un reporte o grafica de las operaciones del JSON 
+
 ![Grafica](https://i.ibb.co/Yyph1r9/Graficas-Operaciones.png)
 
 ## Como se usa la aplicación
