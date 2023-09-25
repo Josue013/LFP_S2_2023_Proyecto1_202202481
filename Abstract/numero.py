@@ -9,8 +9,8 @@ class Numero(Expression):
     def operar(self, arbol):
         return self.valor
     
-    def getfila(self):
+    def getFila(self):
         return super().getFila()
     
-    def getcolumna(self):
+    def getColumna(self):
         return super().getColumna()

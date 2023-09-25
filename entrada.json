@@ -1,11 +1,48 @@
-{
-    {
-    "Operacion":"Suma"
-        "Valor1":4.5
-        "Valor2":5.5
-    }
-    {
-
-    }
-
+{ 
+    "operaciones":[
+        {
+        "operacion":"suma",
+        "valor1":4.5,
+        "valor2":5.32
+        }, 
+        {
+        "operacion":"resta",
+        "valor1": 4.5,
+        "valor2":[
+            {
+                "operacion":"potencia",
+                "valor1":2,
+                "valor2":4
+            }
+            ]
+        },
+        {
+        "operacion":"suma",
+        "valor1":[
+            {
+                "operacion":"seno",
+                "Valor1":90
+            }
+        ],
+        "valor2":9
+        },
+        {
+        "operacion":"multiplicacion",
+        "valor1":7,
+        "valor2":3
+        },
+        {
+        "operacion":"division",
+        "valor1":15,
+        "valor2":3
+        }
+    ],
+    "configuraciones":[
+        {
+            "texto":"Operaciones",
+            "fondo":"verde",
+            "fuente":"blanco",
+            "forma":"cuadrado"
+        }
+    ]
 }

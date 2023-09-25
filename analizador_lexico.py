@@ -1,7 +1,10 @@
 from Instrucciones.aritmeticas import *
 from Instrucciones.trigonometricas import *
+from Instrucciones.texto import *
 from Abstract.lexema import *
 from Abstract.numero import *
+from Errores.Error import *
+
 
 # Patron, Lexema y Token
 
@@ -93,13 +96,19 @@ def instruccion(cadena):
         elif char == '\n':
             cadena = cadena[1:]
             puntero = 0
-            n_linea += 1
+            n_linea = 1
             n_columna = 1    
+        elif char == ' ' or char == '\r' or char == '{' or char == '}' or char == ',' or char == '.' or char == ':':
+            n_columna += 1
+            cadena = cadena[1:]
+            puntero = 0    
         else: 
-            cadena = cadena[1:] 
+            lista_errores.append(Error(char, n_linea, n_columna))
+            cadena = cadena[1:]
             puntero = 0
             n_columna += 1   
 
+    return lista_lexemas
     
 
 
@@ -126,44 +135,63 @@ def armar_numero(cadena):
         puntero += char
         if char == '.':
             is_decimal = True
-        if char == '\"' or char == ' ' or char == '\n' or char == '\t': 
+        if char == '"' or char == ' ' or char == '\n' or char == '\t': 
             if is_decimal:
                 return float(token), cadena[len(puntero)-1:]
             else:
                 return int(token), cadena[len(puntero)-1:]   
         else:
-            numero += char
+            if char != ',':
+                token += char
     return None, None        
 
 def operar():
     global lista_lexemas
     global instrucciones
-    global lista_errores
     operacion = ''
     n1 = ''
     n2 = ''
     while lista_lexemas:
         lexema = lista_lexemas.pop(0)
-        if lexema.operar(None) == 'Operacion':
+        if lexema.operar(None) == 'operacion' or lexema.operar(None) == 'Operacion':
             operacion = lista_lexemas.pop(0)
-        elif lexema.operar(None) == 'Valor1':
+        elif lexema.operar(None) == 'Valor1' or lexema.operar(None) == 'valor1':
             n1 = lista_lexemas.pop(0)
             if n1.operar(None) == '[':
                 n1 = operar()
-        elif lexema.operar(None) == 'Valor2':
+        elif lexema.operar(None) == 'Valor2' or lexema.operar(None) == 'valor2':
             n2 = lista_lexemas.pop(0)
             if n2.operar(None) == '[':
                 n2 = operar()
 
+        if lexema.operar(None) == 'texto':
+            tipo = 'texto'
+            text = lista_lexemas.pop(0)
+            return Texto(text, tipo, f'Inicio: {text.getFila()}', f'Fin: {text.getColumna()}')
+
+        if lexema.operar(None) == 'fondo':
+            tipo = 'fondo'
+            text = lista_lexemas.pop(0)
+            return Texto(text, tipo, f'Inicio: {text.getFila()}', f'Fin: {text.getColumna()}')
+
+        if lexema.operar(None) == 'fuente':
+            tipo = 'fuente'
+            text = lista_lexemas.pop(0)
+            return Texto(text, tipo, f'Inicio: {text.getFila()}', f'Fin: {text.getColumna()}')
+
+        if lexema.operar(None) == 'forma':
+            tipo = 'forma'
+            text = lista_lexemas.pop(0)
+            return Texto(text, tipo, f'Inicio: {text.getFila()}', f'Fin: {text.getColumna()}')
+
         if operacion and n1 and n2:
-            return Aritmetica(operacion, n1, n2, f'Inicio: {operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n2.getFila()}: {n2.getColumna()}')     
-                          
-        elif operacion and n1 and operacion.operar(None) == 'Seno':
-            return Trigonometrica( n1, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
-        elif operacion and n1 and operacion.operar(None) == 'Coseno':
-            return Trigonometrica( n1, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
-        elif operacion and n1 and operacion.operar(None) == 'Tangente':
-            return Trigonometrica( n1, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
+            return Aritmetica(n1, n2, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n2.getFila()}:{n2.getColumna()}')
+
+        elif operacion and n1 and ((operacion.operar(None) == 'inverso') or (operacion.operar(None) == 'seno') or (operacion.operar(None) == 'coseno') or (operacion.operar(None) =='tangente')):
+            return Trigonometrica(n1, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
+        
+        elif operacion and n1 and ((operacion.operar(None) == 'Inverso') or (operacion.operar(None) == 'Seno') or (operacion.operar(None) == 'Coseno') or (operacion.operar(None) =='Tangente')):
+            return Trigonometrica(n1, operacion, f'Inicio: {operacion.getFila()}:{operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
     
     return None
 
@@ -176,8 +204,6 @@ def operar_():
         else:
             break
     
-    # for instruccion in instrucciones:
-    #     print(instruccion.operar(None))
     return instrucciones
 
 def getErrores():
@@ -221,10 +247,5 @@ entrada = '''
     ]
 }'''
 
-instruccion(entrada)
-
-
-
-
-
+#xd
 

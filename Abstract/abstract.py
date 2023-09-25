@@ -11,9 +11,9 @@ class Expression(ABC):
         pass
 
     @abstractmethod
-    def getfila(self):
+    def getFila(self):
         return self.fila
 
     @abstractmethod
-    def getcolumna(self):
+    def getColumna(self):
         return self.columna

@@ -13,15 +13,23 @@ class Trigonometrica(Expression):
         if self.left != None:
             leftValue = self.left.operar(arbol)
 
-        if self.tipo.operar(arbol) == 'Seno':
-            return sin(leftValue)
-        elif self.tipo.operar(arbol) == 'Coseno':
-            return cos(leftValue)
-        elif self.tipo.operar(arbol) == 'Tangente':
-            return tan(leftValue)    
-        else: 
-            return None
-        
+        operacion = self.tipo.operar(arbol)
+
+        if operacion == 'Inverso' or operacion == 'inverso':
+            resultados = round(1/leftValue,2)
+            return resultados
+        elif operacion == 'Seno' or operacion == 'seno':
+            resultados = round(sin(radians(leftValue)), 2)
+            return resultados
+        elif operacion == 'Coseno' or operacion == 'coseno':
+            resultados = round(cos(radians(leftValue)), 2)
+            return resultados
+        elif operacion == 'Tangente' or operacion == 'tangente':
+            resultados = round(tan(radians(leftValue)), 2)
+            return resultados
+        else:
+            return None            
+    
     def getFila(self):
         return super().getFila()
     

@@ -15,22 +15,29 @@ class Aritmetica(Expression):
         if self.right != None:
             rightValue = self.right.operar(arbol)    
 
-        if self.tipo.operar(arbol) == 'Suma':
-            return leftValue + rightValue
-        elif self.tipo.operar(arbol) == 'Resta':
-            return leftValue - rightValue
-        elif self.tipo.operar(arbol) == 'Multiplicacion':
-            return leftValue * rightValue
-        elif self.tipo.operar(arbol) == 'Division':
-            return leftValue / rightValue
-        elif self.tipo.operar(arbol) == 'Potencia':
-            return leftValue ** rightValue
-        elif self.tipo.operar(arbol) == 'Raiz':
-            return leftValue ** (1/rightValue)
-        elif self.tipo.operar(arbol) == 'Inverso':
-            return 1/leftValue
-        elif self.tipo.operar(arbol) == 'Modulo':
-            return leftValue % rightValue
+        operacion = self.tipo.operar(arbol)
+
+        if operacion == 'Suma' or operacion == 'suma':
+            resultados = round(leftValue + rightValue,2)
+            return resultados
+        elif operacion == 'Resta' or operacion == 'resta':
+            resultados = round(leftValue - rightValue,2)
+            return resultados
+        elif operacion == 'Multiplicacion' or operacion == 'multiplicacion':
+            resultados = round(leftValue * rightValue,2)
+            return resultados
+        elif operacion == 'Division' or operacion == 'division':
+            resultados = round(leftValue / rightValue,2)
+            return resultados
+        elif operacion == 'Potencia' or operacion == 'potencia':
+            resultados = round(leftValue ** rightValue,2)
+            return resultados
+        elif operacion == 'Raiz' or operacion == 'raiz':
+            resultados = round(leftValue ** (1/rightValue),2)
+            return resultados
+        elif operacion == 'Mod' or operacion == 'mod':
+            resultados = round(leftValue % rightValue,2)
+            return resultados
         else:
             return None
         
